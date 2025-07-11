@@ -89,6 +89,46 @@ export default function WorkoutPlanner() {
     completeWorkoutMutation.mutate(sessionId);
   };
 
+  const startPlanMutation = useMutation({
+    mutationFn: async (planId: number) => {
+      // Get the plan from the database
+      const plan = await apiRequest("GET", `/api/workout-plans/${planId}`);
+      
+      // Create a workout session from the plan
+      const today = new Date().toISOString().split('T')[0];
+      const sessionData = {
+        workoutPlanId: plan.id,
+        name: plan.name,
+        muscleGroups: plan.muscleGroups || [],
+        duration: plan.duration || 45,
+        exercises: plan.exercises || [],
+        scheduledDate: today,
+        caloriesBurned: 350
+      };
+      
+      return await apiRequest("POST", "/api/workout-sessions", sessionData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/workout-sessions"] });
+      toast({
+        title: "Workout Scheduled! 🎯",
+        description: "Your workout session has been added to your schedule.",
+      });
+      setSelectedTab("sessions"); // Switch to sessions tab
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to start workout plan",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleStartPlan = (planId: number) => {
+    startPlanMutation.mutate(planId);
+  };
+
   const preMadePlans = [
     {
       id: 1,
@@ -215,8 +255,12 @@ export default function WorkoutPlanner() {
                         {getDifficultyDots(plan.difficulty)}
                       </div>
                     </div>
-                    <Button className="w-full gym-button-primary">
-                      Start Plan
+                    <Button 
+                      className="w-full gym-button-primary" 
+                      onClick={() => handleStartPlan(plan.id)}
+                      disabled={startPlanMutation.isPending}
+                    >
+                      {startPlanMutation.isPending ? "Starting..." : "Start Plan"}
                     </Button>
                   </CardContent>
                 </Card>
