@@ -1,0 +1,256 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(222, 84%, 5%);
+  --foreground: hsl(0, 0%, 100%);
+  --muted: hsl(215, 28%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --popover: hsl(222, 84%, 5%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --card: hsl(222, 84%, 5%);
+  --card-foreground: hsl(0, 0%, 100%);
+  --border: hsl(215, 28%, 17%);
+  --input: hsl(215, 28%, 17%);
+  --primary: hsl(158, 64%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(215, 28%, 17%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(215, 28%, 17%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --ring: hsl(215, 20%, 65%);
+  --radius: 0.5rem;
+
+  /* Custom Gym Colors */
+  --gym-primary: hsl(158, 64%, 52%);
+  --gym-secondary: hsl(213, 93%, 68%);
+  --gym-accent: hsl(261, 83%, 71%);
+  --gym-dark: hsl(222, 84%, 5%);
+  --gym-surface: hsl(215, 28%, 17%);
+  --gym-text: hsl(0, 0%, 100%);
+  --gym-muted: hsl(215, 20%, 65%);
+}
+
+.dark {
+  --background: hsl(222, 84%, 5%);
+  --foreground: hsl(0, 0%, 100%);
+  --muted: hsl(215, 28%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --popover: hsl(222, 84%, 5%);
+  --popover-foreground: hsl(0, 0%, 100%);
+  --card: hsl(222, 84%, 5%);
+  --card-foreground: hsl(0, 0%, 100%);
+  --border: hsl(215, 28%, 17%);
+  --input: hsl(215, 28%, 17%);
+  --primary: hsl(158, 64%, 52%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(215, 28%, 17%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --accent: hsl(215, 28%, 17%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 62%, 30%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --ring: hsl(215, 20%, 65%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  html {
+    @apply dark;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    background: linear-gradient(135deg, var(--gym-primary), var(--gym-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .card-hover:hover {
+    @apply -translate-y-1 shadow-2xl;
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+  }
+
+  .progress-bar {
+    background: linear-gradient(90deg, var(--gym-primary), var(--gym-secondary));
+    animation: shimmer 2s infinite;
+  }
+
+  .badge-glow {
+    filter: drop-shadow(0 0 8px var(--gym-primary));
+  }
+
+  .glass-effect {
+    backdrop-filter: blur(10px);
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .gym-button {
+    @apply px-4 py-2 rounded-2xl text-white font-medium transition-all duration-200 hover:scale-105 shadow-md;
+  }
+
+  .gym-button-primary {
+    @apply gym-button bg-green-500 hover:bg-green-600;
+  }
+
+  .gym-button-secondary {
+    @apply gym-button bg-sky-500 hover:bg-sky-600;
+  }
+
+  .gym-button-accent {
+    @apply gym-button bg-purple-500 hover:bg-purple-600;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.5s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 20px var(--gym-primary); }
+  100% { box-shadow: 0 0 30px var(--gym-primary), 0 0 40px var(--gym-primary); }
+}
+
+@keyframes slideIn {
+  0% { transform: translateX(-100%); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gym-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gym-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gym-secondary);
+}
+
+/* PWA specific styles */
+.pwa-install-prompt {
+  @apply fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-green-500 to-sky-500 text-white p-4 shadow-lg;
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Gamification styles */
+.points-counter {
+  @apply text-2xl font-bold text-purple-400;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.achievement-badge {
+  @apply relative overflow-hidden rounded-full bg-gradient-to-r from-green-500 to-sky-500 p-4 text-white;
+  animation: float 6s ease-in-out infinite;
+}
+
+.achievement-badge::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20;
+  animation: shimmer 2s infinite;
+}
+
+/* Streak display */
+.streak-fire {
+  @apply text-orange-500;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.streak-counter {
+  @apply text-3xl font-bold text-orange-500;
+  text-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+}
+
+/* Progress bars */
+.progress-container {
+  @apply w-full bg-gray-700 rounded-full h-3 overflow-hidden;
+}
+
+.progress-fill {
+  @apply h-full bg-gradient-to-r from-green-500 to-sky-500 transition-all duration-1000 ease-out;
+}
+
+/* Workout card styles */
+.workout-card {
+  @apply bg-gray-800 rounded-2xl p-6 card-hover border border-gray-700;
+}
+
+.meal-card {
+  @apply bg-gray-800 rounded-2xl p-6 card-hover border border-gray-700;
+}
+
+/* Admin panel styles */
+.admin-stat-card {
+  @apply bg-gray-800 rounded-2xl p-6 text-center border border-gray-700;
+}
+
+.admin-stat-icon {
+  @apply w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .gym-button {
+    @apply px-3 py-2 text-sm;
+  }
+  
+  .card-hover:hover {
+    @apply translate-y-0 shadow-lg;
+  }
+}
