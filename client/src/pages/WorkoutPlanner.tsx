@@ -97,13 +97,13 @@ export default function WorkoutPlanner() {
       // Create a workout session from the plan
       const today = new Date().toISOString().split('T')[0];
       const sessionData = {
-        workoutPlanId: plan.id,
+        workout_plan_id: plan.id,
         name: plan.name,
-        muscleGroups: plan.muscleGroups || [],
+        muscle_groups: plan.muscle_groups || [],
         duration: plan.duration || 45,
         exercises: plan.exercises || [],
-        scheduledDate: today,
-        caloriesBurned: 350
+        scheduled_date: today,
+        calories_burned: 350
       };
       
       return await apiRequest("POST", "/api/workout-sessions", sessionData);
